@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="seamless-chex",
+    name="seamy-chex",
     version="0.0.1",
     description="An (unofficial) package used to integrate with the SeamlessChex API quickly and easily.",
     long_description=open('README.md').read(),
