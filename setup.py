@@ -11,7 +11,8 @@ setup(
     url="https://github.com/Faugermire/seamless-chex",
     packages=find_packages(),
     install_requires=[
-        "setuptools~=74.1.2"
+        "setuptools~=74.1.2",
+        "requests~=2.32.3"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
