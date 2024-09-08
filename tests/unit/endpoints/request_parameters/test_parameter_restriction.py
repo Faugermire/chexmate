@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.seamy_chex.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from src.chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
 
 
 class TestParameterRestriction(TestCase):

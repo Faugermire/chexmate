@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
-from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
+from src.chexmate.endpoints.request_parameters.request_parameter import RequestParameter
+from src.chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
 
 
 class TestRequestParameterList(TestCase):

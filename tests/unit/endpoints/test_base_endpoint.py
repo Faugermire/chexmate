@@ -1,8 +1,8 @@
-from src.seamy_chex.endpoints.base_endpoint import BaseEndpoint
-from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
-from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
-from src.seamy_chex.enums.content_type_enum import ContentType
-from src.seamy_chex.enums.http_method_enum import HTTPMethod
+from src.chexmate.endpoints.base_endpoint import BaseEndpoint
+from src.chexmate.endpoints.request_parameters.request_parameter import RequestParameter
+from src.chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
+from src.chexmate.enums.content_type_enum import ContentType
+from src.chexmate.enums.http_method_enum import HTTPMethod
 from tests.unit.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
 
 

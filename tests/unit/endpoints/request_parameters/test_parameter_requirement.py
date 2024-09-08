@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.seamy_chex.endpoints.request_parameters.parameter_requirement import ParameterRequirement
+from src.chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
 
 
 class TestParameterRequirement(TestCase):

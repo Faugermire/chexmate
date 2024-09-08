@@ -4,13 +4,13 @@ from os import environ
 
 import requests
 
-from src.seamy_chex.endpoints.base_endpoint import BaseEndpoint
-from src.seamy_chex.endpoints.request_parameters.parameter_requirement import ParameterRequirement
-from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
-from src.seamy_chex.endpoints.request_parameters.parameter_restriction import ParameterRestriction
-from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
-from src.seamy_chex.enums.content_type_enum import ContentType
-from src.seamy_chex.enums.http_method_enum import HTTPMethod
+from src.chexmate.endpoints.base_endpoint import BaseEndpoint
+from src.chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
+from src.chexmate.endpoints.request_parameters.request_parameter import RequestParameter
+from src.chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from src.chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
+from src.chexmate.enums.content_type_enum import ContentType
+from src.chexmate.enums.http_method_enum import HTTPMethod
 import re
 
 
@@ -22,7 +22,28 @@ class CreateACheckEndpoint(BaseEndpoint):
         content_type = ContentType.APPLICATION_JSON
         super().__init__(base_url, url_tail, api_key, method, content_type)
 
-    def create_request_header_and_body_parameter_lists(
+    def create_request_header_list(self):
+        header_parameters = RequestParameterList(
+            RequestParameter(
+                param_name='Authorization',
+                param_types=str,
+                param_value=self.api_key,
+                restrictions=[],
+                description='Authorization header containing your API key.',
+                required=True
+            ),
+            RequestParameter(
+                param_name='Content-Type',
+                param_types=str,
+                param_value=self.content_type.value,
+                restrictions=[],
+                description='It tells the server what type of data is actually sent.',
+                required=False
+            )
+        )
+        return header_parameters
+
+    def create_request_body_list(
             self,
             *,
             number: Optional[str],
@@ -49,25 +70,6 @@ class CreateACheckEndpoint(BaseEndpoint):
             verify_before_save: bool,
             fund_confirmation: bool
     ):
-        header_parameters = RequestParameterList(
-            RequestParameter(
-                param_name='Authorization',
-                param_types=str,
-                param_value=self.api_key,
-                restrictions=[],
-                description='Authorization header containing your API key.',
-                required=True
-            ),
-            RequestParameter(
-                param_name='Content-Type',
-                param_types=str,
-                param_value=self.content_type.value,
-                restrictions=[],
-                description='It tells the server what type of data is actually sent.',
-                required=False
-            )
-        )
-
         body_parameters = RequestParameterList(
             RequestParameter(
                 param_name='number',
@@ -321,4 +323,4 @@ class CreateACheckEndpoint(BaseEndpoint):
                 required=False
             ),
         )
-        return header_parameters, body_parameters
+        return body_parameters

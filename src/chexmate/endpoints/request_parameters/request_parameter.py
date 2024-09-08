@@ -1,7 +1,7 @@
 from typing import Any
 
-from src.seamy_chex.endpoints.request_parameters.parameter_requirement import ParameterRequirement
-from src.seamy_chex.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from src.chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
+from src.chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
 
 
 class RequestParameter:

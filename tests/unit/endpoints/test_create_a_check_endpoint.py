@@ -1,4 +1,4 @@
-from src.seamy_chex.endpoints.create_a_check_endpoint import CreateACheckEndpoint
+from src.chexmate.endpoints.create_a_check_endpoint import CreateACheckEndpoint
 from tests.unit.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
 
 
@@ -6,10 +6,10 @@ class TestCreateACheckEndpoint(BaseTestEndpointSubclass):
 
     def setUp(self):
         super().setUp()
-        self.create_a_check_endpoint = CreateACheckEndpoint()
+        self.create_a_check_endpoint = CreateACheckEndpoint(self.base_url, self.api_key)
         self.valid_setup_request_params = {
-            'check_number': None,
-            'check_amount': 1000.69,
+            'number': None,
+            'amount': 1000.69,
             'memo': 'test memo',
             'name': 'test name',
             'email': 'test@email.com',
@@ -34,6 +34,7 @@ class TestCreateACheckEndpoint(BaseTestEndpointSubclass):
         }
 
     def test_valid_create_a_check_endpoint(self):
-        header_params, body_params = self.create_a_check_endpoint.create_request_header_and_body_parameter_lists(**self.valid_setup_request_params)
-        self.create_a_check_endpoint.validate_parameters(header_params)
-        self.create_a_check_endpoint.validate_parameters(body_params)
+        header_params = self.create_a_check_endpoint.create_request_header_list()
+        body_params = self.create_a_check_endpoint.create_request_body_list(**self.valid_setup_request_params)
+        header_params.validate()
+        body_params.validate()

@@ -1,14 +1,15 @@
 from setuptools import setup, find_packages
 
+
 setup(
-    name="seamy-chex",
+    name="chexmate",
     version="0.0.1",
     description="An (unofficial) package used to integrate with the SeamlessChex API quickly and easily.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author="William Hinz",
     author_email="faugermire@gmail.com",
-    url="https://github.com/Faugermire/seamy-chex",
+    url="https://github.com/Faugermire/chex-mate",
     packages=find_packages(),
     install_requires=[
         "setuptools~=74.1.2",
