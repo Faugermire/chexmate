@@ -16,11 +16,11 @@ import re
 
 class CreateACheckEndpoint(BaseEndpoint):
 
-    def __init__(self):
+    def __init__(self, base_url: str, api_key):
         url_tail = '/v1/check/create'
         method = HTTPMethod.POST
         content_type = ContentType.APPLICATION_JSON
-        super().__init__(url_tail, method, content_type)
+        super().__init__(base_url, url_tail, api_key, method, content_type)
 
     def create_request_header_and_body_parameter_lists(
             self,

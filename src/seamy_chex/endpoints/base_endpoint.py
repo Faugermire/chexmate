@@ -1,30 +1,20 @@
-import os
-from abc import ABC, abstractmethod
-
 import requests
 from requests import Response
 from urllib.parse import urljoin
+from abc import ABC, abstractmethod
 
-from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
 from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
 from src.seamy_chex.enums.content_type_enum import ContentType
 from src.seamy_chex.enums.http_method_enum import HTTPMethod
-from src.seamy_chex.enums.seamless_chex_base_url_enum import SeamlessChexBaseUrl
 
 
 class BaseEndpoint(ABC):
 
-    def __init__(self, url_tail: str, method: HTTPMethod, content_type: ContentType):
+    def __init__(self, base_url: str, url_tail: str, api_key: str, method: HTTPMethod, content_type: ContentType):
+        self.base_url = base_url
         self.url_tail = url_tail
-        self.seamless_chex_environment = os.environ.get('SEAMLESS_CHEX_ENVIRONMENT')
-        if self.seamless_chex_environment is None:
-            raise ValueError(f'The "SEAMLESS_CHEX_ENVIRONMENT" environment variable needs to be set with a string representing either "PRODUCTION" for production mode or anything else for sandbox mode. It is currently {self.seamless_chex_environment}')
-        self.is_sandbox_mode = self.seamless_chex_environment != 'PRODUCTION'
-        self.base_url = SeamlessChexBaseUrl.SANDBOX_BASE_URL.value if self.is_sandbox_mode else SeamlessChexBaseUrl.PRODUCTION_BASE_URL.value
-        self.api_key = os.environ.get('SEAMLESS_CHEX_API_KEY')
-        if self.api_key is None:
-            raise ValueError(f'The "SEAMLESS_CHEX_API_KEY" environment variable needs to be set with either the base sandbox or base production api key.')
         self.full_url = urljoin(self.base_url, self.url_tail)
+        self.api_key = api_key
         self.method = method
         self.content_type = content_type
 

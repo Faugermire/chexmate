@@ -1,5 +1,6 @@
 from src.seamy_chex.endpoints.base_endpoint import BaseEndpoint
 from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
+from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
 from src.seamy_chex.enums.content_type_enum import ContentType
 from src.seamy_chex.enums.http_method_enum import HTTPMethod
 from tests.unit.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
@@ -9,8 +10,8 @@ class BaseEndpointTestWrapper(BaseEndpoint):
     """wrapper that allows us to instantiate a representational object of the base endpoint, which we can't
     do normally because of its ABC lineage and presence of abstract methods."""
 
-    def create_request_header_and_body_parameter_lists(self, **kwargs) -> tuple[tuple[RequestParameter, ...], tuple[RequestParameter, ...]]:
-        return (), ()
+    def create_request_header_and_body_parameter_lists(self, **kwargs) -> tuple[RequestParameterList, RequestParameterList]:
+        return RequestParameterList(), RequestParameterList()
 
 
 class TestBaseEndpoint(BaseTestEndpointSubclass):

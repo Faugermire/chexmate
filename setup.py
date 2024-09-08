@@ -8,7 +8,7 @@ setup(
     long_description_content_type='text/markdown',
     author="William Hinz",
     author_email="faugermire@gmail.com",
-    url="https://github.com/Faugermire/seamless-chex",
+    url="https://github.com/Faugermire/seamy-chex",
     packages=find_packages(),
     install_requires=[
         "setuptools~=74.1.2",
@@ -19,5 +19,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.12',
+    python_requires='>=3.12',  # Developed using 3.12.5. Other versions are not guaranteed to work.
 )
