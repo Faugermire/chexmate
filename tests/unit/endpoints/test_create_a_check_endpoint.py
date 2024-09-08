@@ -1,5 +1,5 @@
 from src.seamy_chex.endpoints.create_a_check_endpoint import CreateACheckEndpoint
-from tests.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
+from tests.unit.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
 
 
 class TestCreateACheckEndpoint(BaseTestEndpointSubclass):
@@ -34,6 +34,6 @@ class TestCreateACheckEndpoint(BaseTestEndpointSubclass):
         }
 
     def test_valid_create_a_check_endpoint(self):
-        header_params, body_params = self.create_a_check_endpoint.create_request_parameters(**self.valid_setup_request_params)
+        header_params, body_params = self.create_a_check_endpoint.create_request_header_and_body_parameter_lists(**self.valid_setup_request_params)
         self.create_a_check_endpoint.validate_parameters(header_params)
         self.create_a_check_endpoint.validate_parameters(body_params)

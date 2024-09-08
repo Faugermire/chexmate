@@ -2,10 +2,13 @@ from typing import Literal, Optional
 
 from os import environ
 
+import requests
+
 from src.seamy_chex.endpoints.base_endpoint import BaseEndpoint
 from src.seamy_chex.endpoints.request_parameters.parameter_requirement import ParameterRequirement
 from src.seamy_chex.endpoints.request_parameters.request_parameter import RequestParameter
 from src.seamy_chex.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from src.seamy_chex.endpoints.request_parameters.request_parameter_list import RequestParameterList
 from src.seamy_chex.enums.content_type_enum import ContentType
 from src.seamy_chex.enums.http_method_enum import HTTPMethod
 import re
@@ -14,16 +17,16 @@ import re
 class CreateACheckEndpoint(BaseEndpoint):
 
     def __init__(self):
-        url_tail = '/check/create'
+        url_tail = '/v1/check/create'
         method = HTTPMethod.POST
         content_type = ContentType.APPLICATION_JSON
         super().__init__(url_tail, method, content_type)
 
-    def create_request_parameters(
+    def create_request_header_and_body_parameter_lists(
             self,
             *,
-            check_number: Optional[str],
-            check_amount: float,
+            number: Optional[str],
+            amount: float,
             memo: str,
             name: str,
             email: Optional[str],
@@ -46,7 +49,7 @@ class CreateACheckEndpoint(BaseEndpoint):
             verify_before_save: bool,
             fund_confirmation: bool
     ):
-        header_parameters = (
+        header_parameters = RequestParameterList(
             RequestParameter(
                 param_name='Authorization',
                 param_types=str,
@@ -65,11 +68,11 @@ class CreateACheckEndpoint(BaseEndpoint):
             )
         )
 
-        body_parameters = (
+        body_parameters = RequestParameterList(
             RequestParameter(
                 param_name='number',
                 param_types=str,
-                param_value=check_number,
+                param_value=number,
                 restrictions=[
                     ParameterRestriction(lambda x: x.isdigit()),
                     ParameterRestriction(lambda x: all([1 <= int(str_num) <= 9 for str_num in x]))
@@ -81,7 +84,7 @@ class CreateACheckEndpoint(BaseEndpoint):
             RequestParameter(
                 param_name='amount',
                 param_types=(int, float),
-                param_value=check_amount,
+                param_value=amount,
                 restrictions=[
                     ParameterRestriction(lambda x: x > 0)
                 ],
@@ -111,7 +114,7 @@ class CreateACheckEndpoint(BaseEndpoint):
             RequestParameter(
                 param_name='email',
                 param_types=str,
-                param_value=name,
+                param_value=email,
                 restrictions=[
                     ParameterRestriction(lambda x: len(x) <= 80)
                 ],
@@ -280,7 +283,7 @@ class CreateACheckEndpoint(BaseEndpoint):
                 param_types=str,
                 param_value=recurring_start_date,
                 restrictions=[
-                    ParameterRestriction(lambda x:  x == 'NULL' or re.search(x, "^\d\d\d\d-\d\d-\d\d$") is not None),
+                    ParameterRestriction(lambda x:  x == 'NULL' or re.search(r'^\d\d\d\d-\d\d-\d\d$', x) is not None),
                 ],
                 description='''The recurring payments will start on the day of its creation, if selected NULL. 
                 If a start date is entered, the recurring payment will start on the start date selected.''',

@@ -41,3 +41,10 @@ class RequestParameter:
 
     def to_key_value_pair(self):
         return self.param_name, self.param_value
+
+    def __str__(self):
+        return f'''
+        Parameter Name: {self.param_name}
+        Parameter Value: {self.param_value}
+        Parameter Description: {self.description}
+        '''
