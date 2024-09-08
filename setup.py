@@ -10,7 +10,8 @@ setup(
     author="William Hinz",
     author_email="faugermire@gmail.com",
     url="https://github.com/Faugermire/chex-mate",
-    packages=find_packages(),
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
         "setuptools~=74.1.2",
         "requests~=2.32.3"

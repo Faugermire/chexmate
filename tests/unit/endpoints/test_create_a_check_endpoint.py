@@ -1,4 +1,4 @@
-from src.chexmate.endpoints.create_a_check_endpoint import CreateACheckEndpoint
+from chexmate.endpoints.create_a_check_endpoint import CreateACheckEndpoint
 from tests.unit.endpoints.base_endpoint_test_subclass import BaseTestEndpointSubclass
 
 

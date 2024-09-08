@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
 
-from src.chexmate.seamless_chex import SeamlessChex
+from chexmate.seamless_chex import SeamlessChex
 
 
 class TestE2ECreateACheckEndpoint(TestCase):
@@ -40,6 +40,7 @@ class TestE2ECreateACheckEndpoint(TestCase):
         body_parameters = seamless_chex.endpoints.create_a_check.create_request_body_list(**request_body_params)
         # print(f'HEADER PARAMETERS: {str(header_parameters)}')
         # print(f'BODY PARAMETERS: {str(body_parameters)}')
-        print(body_parameters.to_dict())
+        # print(body_parameters.to_dict())
         resp = seamless_chex.endpoints.create_a_check.send_request(header_parameters, body_parameters)
+        print('RESPONSE:')
         print(resp.json())
