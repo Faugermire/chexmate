@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="chexmate",
-    version="0.0.3",
+    version="0.0.4",
     description="An (unofficial) package used to integrate with the SeamlessChex API quickly and easily.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
