@@ -45,7 +45,7 @@ class TestCreateACheckEndpoint(BaseTestEndpointSubclass):
             'memo': 'test memo',
             'name': 'test name',
             'email': 'test@email.com',
-            'token': '12345678901234567890123456789012345',
+            'token': '123456789012345678901234567890123456',
             'store': 'test.site.com',
         }
 
