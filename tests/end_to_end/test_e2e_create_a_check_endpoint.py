@@ -8,9 +8,11 @@ class TestE2ECreateACheckEndpoint(TestCase):
 
     def test_e2e_create_a_check_endpoint_success(self):
         print(f'API KEY: {os.environ['SEAMLESS_CHEX_API_KEY']}')
-        print(f'SEAMLESS CHEX ENVIRONMENT: {os.environ['SEAMLESS_CHEX_ENVIRONMENT']}')
-        seamless_chex = SeamlessChex()
-        print(f'SEAMLESS CHEX SANDBOX MODE ACTIVATED: {seamless_chex.is_sandbox_mode}')
+        print(f'SEAMLESS CHEX ENVIRONMENT: {os.environ['SEAMLESS_CHEX_IS_PRODUCTION']}')
+        api_key = os.environ['SEAMLESS_CHEX_API_KEY']
+        is_production_mode = os.environ['SEAMLESS_CHEX_IS_PRODUCTION'] == 'true'
+        seamless_chex = SeamlessChex(api_key=api_key, is_production_mode=is_production_mode)
+        print(f'SEAMLESS CHEX PRODUCTION MODE ACTIVATED: {seamless_chex.is_production_mode}')
         request_body_params = {
             "number": None,
             "amount": 100,

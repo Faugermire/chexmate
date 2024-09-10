@@ -3,9 +3,9 @@ from requests import Response
 from urllib.parse import urljoin
 from abc import ABC, abstractmethod
 
-from src.chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
-from src.chexmate.enums.content_type_enum import ContentType
-from src.chexmate.enums.http_method_enum import HTTPMethod
+from chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
+from chexmate.enums.content_type_enum import ContentType
+from chexmate.enums.http_method_enum import HTTPMethod
 
 
 class BaseEndpoint(ABC):

@@ -1,6 +1,6 @@
 from collections import UserList
 
-from src.chexmate.endpoints.request_parameters.request_parameter import RequestParameter
+from chexmate.endpoints.request_parameters.request_parameter import RequestParameter
 
 
 class RequestParameterList(UserList):

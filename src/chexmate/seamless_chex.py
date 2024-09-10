@@ -1,7 +1,5 @@
-import os
-
-from src.chexmate.endpoints.endpoints import Endpoints
-from src.chexmate.enums.seamless_chex_base_url_enum import SeamlessChexBaseUrl
+from chexmate.endpoints.endpoints import Endpoints
+from chexmate.enums.seamless_chex_base_url_enum import SeamlessChexBaseUrl
 
 
 class SeamlessChex:

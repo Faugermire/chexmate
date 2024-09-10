@@ -1,17 +1,13 @@
+import re
 from typing import Literal, Optional
 
-from os import environ
-
-import requests
-
-from src.chexmate.endpoints.base_endpoint import BaseEndpoint
-from src.chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
-from src.chexmate.endpoints.request_parameters.request_parameter import RequestParameter
-from src.chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
-from src.chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
-from src.chexmate.enums.content_type_enum import ContentType
-from src.chexmate.enums.http_method_enum import HTTPMethod
-import re
+from chexmate.endpoints.base_endpoint import BaseEndpoint
+from chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
+from chexmate.endpoints.request_parameters.request_parameter import RequestParameter
+from chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from chexmate.endpoints.request_parameters.request_parameter_list import RequestParameterList
+from chexmate.enums.content_type_enum import ContentType
+from chexmate.enums.http_method_enum import HTTPMethod
 
 
 class CreateACheckEndpoint(BaseEndpoint):
@@ -46,30 +42,33 @@ class CreateACheckEndpoint(BaseEndpoint):
     def create_request_body_list(
             self,
             *,
-            number: Optional[str],
+            number: Optional[str] = None,
             amount: float,
             memo: str,
             name: str,
-            email: Optional[str],
-            authorization_date: Optional[str],
-            label: Optional[str],
-            phone: Optional[str],
-            sender_address: Optional[str],
-            sender_city: Optional[str],
-            sender_state: Optional[str],
-            sender_zip: Optional[str],
-            bank_account: Optional[str],
-            bank_routing: Optional[str],
-            token: Optional[str],
-            store: Optional[str],
-            type_info: str,
-            recurring: Literal[0, 1],
-            recurring_cycle: str,
-            recurring_start_date: str,
-            recurring_installments: int,
-            verify_before_save: bool,
-            fund_confirmation: bool
+            email: str = None,
+            authorization_date: Optional[str] = None,
+            label: Optional[str] = None,
+            phone: Optional[str] = None,
+            sender_address: Optional[str] = None,
+            sender_city: Optional[str] = None,
+            sender_state: Optional[str] = None,
+            sender_zip: Optional[str] = None,
+            bank_account: Optional[str] = None,
+            bank_routing: Optional[str] = None,
+            token: Optional[str] = None,
+            store: Optional[str] = None,
+            type_info: Optional[str] = None,
+            recurring: Optional[Literal[0, 1]] = None,
+            recurring_cycle: Optional[str] = None,
+            recurring_start_date: Optional[str] = None,
+            recurring_installments: Optional[int] = None,
+            verify_before_save: Optional[bool] = True,
+            fund_confirmation: Optional[bool] = None
     ):
+        if bank_account is bank_routing is token is store is None:
+            raise ValueError('You must set either bank_account and bank_routing parameters OR token and store parameters.')
+
         body_parameters = RequestParameterList(
             RequestParameter(
                 param_name='number',
@@ -239,11 +238,11 @@ class CreateACheckEndpoint(BaseEndpoint):
                 param_types=str,
                 param_value=store,
                 restrictions=[
-                    # NOTE: format: site.com. Just make sure to adhere to this format. Regex for this would be a pain in the ass.
                     ParameterRestriction(lambda x: bank_account is bank_routing is None),
                 ],
                 description='''The store from which the requests are received. (The ‘token’ and ‘store’ fields must be 
-                both entered. In this case, both fields ‘bank_routing’ and ‘bank_account’ must not be entered.)''',
+                both entered. In this case, both fields ‘bank_routing’ and ‘bank_account’ must not be entered.) NOTE: 
+                format: site.com. Just make sure to adhere to this format. Regex for this would be a pain in the ass.''',
                 required=ParameterRequirement(lambda x: True if token is not None else False)
             ),
             RequestParameter(
@@ -265,8 +264,7 @@ class CreateACheckEndpoint(BaseEndpoint):
                 ],
                 description='''Select to enable recurring payments.
                     “0” - the fields will not be checked and validated.
-                    “1” - the fields will be checked, accepted and validated.
-                ''',
+                    “1” - the fields will be checked, accepted and validated.''',
                 required=False
             ),
             RequestParameter(

@@ -1,6 +1,6 @@
-from src.chexmate.enums.risk_enum import Risk
-from src.chexmate.enums.fund_confirmation_enum import FundConfirmation
-from src.chexmate.enums.routing_number_enum import RoutingNumber
+from chexmate.enums.risk_enum import Risk
+from chexmate.enums.fund_confirmation_enum import FundConfirmation
+from chexmate.enums.routing_number_enum import RoutingNumber
 
 # NOTE: The keys are the account numbers
 

@@ -1,3 +1,4 @@
+import inspect
 from typing import Any, Callable
 
 
@@ -9,3 +10,6 @@ class ParameterRequirement:
 
     def __call__(self, parameter_value: Any, ) -> bool:
         return self.requirement(parameter_value)
+
+    def __str__(self):
+        return inspect.getsource(self.requirement).strip()

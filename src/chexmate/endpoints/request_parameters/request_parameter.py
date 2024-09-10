@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Any, Optional
 
-from src.chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
-from src.chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
+from chexmate.endpoints.request_parameters.parameter_requirement import ParameterRequirement
+from chexmate.endpoints.request_parameters.parameter_restriction import ParameterRestriction
 
 
 class RequestParameter:
@@ -10,7 +10,7 @@ class RequestParameter:
                  *,
                  param_name: str,
                  param_types: type | tuple[type, ...],
-                 param_value: Any,
+                 param_value: Optional[Any],
                  restrictions: list[ParameterRestriction],
                  description: str,
                  required: bool | ParameterRequirement):
@@ -33,7 +33,8 @@ class RequestParameter:
         for restriction in self.restrictions:
             result = restriction(self.param_value)
             if not result:
-                raise ValueError(f'Invalid request parameter detected for "{self.param_name}". The invalid value was "{self.param_value}".')
+                raise ValueError(f'''Invalid request parameter detected for "{self.param_name}". The invalid value was "{self.param_value}".
+                {str(self)}''')
 
     def to_dict(self):
         key, val = self.to_key_value_pair()
@@ -47,4 +48,6 @@ class RequestParameter:
         Parameter Name: {self.param_name}
         Parameter Value: {self.param_value}
         Parameter Description: {self.description}
+        Parameter Restrictions: {' '.join([str(x) for x in self.restrictions])}
+        Parameter Requirement: {str(self.required)}
         '''

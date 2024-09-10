@@ -1,4 +1,5 @@
 from typing import Any, Callable
+import inspect
 
 
 class ParameterRestriction:
@@ -9,3 +10,6 @@ class ParameterRestriction:
 
     def __call__(self, parameter_value: Any, ) -> bool:
         return self.restriction(parameter_value)
+
+    def __str__(self):
+        return inspect.getsource(self.restriction).strip()
